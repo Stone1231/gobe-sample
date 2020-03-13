@@ -23,15 +23,15 @@ var err error
 
 func TestMain(m *testing.M) {
 	log.Println("test start")
-
-	os.Remove("test.db")
-	db, err = gorm.Open("sqlite3", "test.db")
+	dbName := "test.db"
+	db, err = gorm.Open("sqlite3", dbName)
 	db.AutoMigrate(&Dept{}, &Proj{}, &User{})
 	if err != nil {
 		panic("failed to connect database")
 	}
 	retCode := m.Run()
 	db.Close()
+	os.Remove(dbName)
 	os.Exit(retCode)
 }
 
