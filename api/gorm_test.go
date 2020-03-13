@@ -24,6 +24,7 @@ var err error
 func TestMain(m *testing.M) {
 	log.Println("test start")
 	dbName := "test.db"
+	os.Remove(dbName)
 	db, err = gorm.Open("sqlite3", dbName)
 	db.AutoMigrate(&Dept{}, &Proj{}, &User{})
 	if err != nil {
